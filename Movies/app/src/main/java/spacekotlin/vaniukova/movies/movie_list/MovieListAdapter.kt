@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies
+package spacekotlin.vaniukova.movies.movie_list
 
 import android.view.View
 import android.view.ViewGroup
@@ -8,23 +8,25 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import spacekotlin.vaniukova.movies.R
+import spacekotlin.vaniukova.movies.inflate
 
 class MovieListAdapter(
     private val onItemClicked: (id: Long) -> Unit
 ) : RecyclerView.Adapter<MovieListAdapter.Holder>() {
+
     private val differ = AsyncListDiffer<Movie>(this, MovieDiffUtilCallBack())
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return Holder(parent.inflate(R.layout.item_movie), onItemClicked)
     }
 
-    override fun onBindViewHolder(holder: MovieListAdapter.Holder, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val movie = differ.currentList[position]
+        holder.bind(movie)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = differ.currentList.size
 
     class MovieDiffUtilCallBack : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -64,6 +66,7 @@ class MovieListAdapter(
         }
     }
 
-
-
+    fun updateMovie(newMovies: List<Movie>) {
+        differ.submitList(newMovies)
+    }
 }
