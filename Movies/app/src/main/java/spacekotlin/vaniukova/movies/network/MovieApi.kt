@@ -9,6 +9,8 @@ interface MovieApi {
     @GET("/")
     fun getSearchMovieList(
         @Query("apikey") apikey: String,
-        @Query("s") title: String
+        @Query("s") title: String,
+        @Query("y") year: String,
+        @Query("type") type: String
     ): Call<ServerItemsWrapper<Movie>>
 }

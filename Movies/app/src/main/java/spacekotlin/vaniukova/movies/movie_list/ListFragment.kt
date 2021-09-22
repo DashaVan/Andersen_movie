@@ -96,8 +96,8 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
         dialog.show(childFragmentManager, "${dialog.tag}")
     }
 
-    override fun query(title: String) {
-        viewModel.search(title)
+    override fun query(title: String, year: String, type: String) {
+        viewModel.search(title, year, type)
         errorText = ""
     }
 }

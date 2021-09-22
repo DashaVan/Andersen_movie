@@ -26,9 +26,21 @@ class DialogSearchMovieFragment : DialogFragment() {
         binding.buttonSearch.setOnClickListener {
             if (binding.editTextTitle.text.isNotEmpty()) {
                 val searchByTitle = binding.editTextTitle.text.toString()
-                (parentFragment as QueryMovie).query(searchByTitle)
+                val searchYear = binding.editTextYear.text.toString()
+                val type =
+                    if (binding.checkBoxMovies.isChecked && binding.checkBoxSerials.isChecked) {
+                        ""
+                    } else {
+                        if (binding.checkBoxMovies.isChecked) {
+                            "movie"
+                        } else {
+                            if (binding.checkBoxSerials.isChecked) {
+                                "series"
+                            } else ""
+                        }
+                    }
+                (parentFragment as QueryMovie).query(searchByTitle, searchYear, type)
                 dismiss()
-
             } else {
                 Toast.makeText(
                     requireContext(),

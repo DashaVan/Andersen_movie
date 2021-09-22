@@ -30,7 +30,7 @@
         tools:text="Star Wars: Episode IV - A New Hope" />
 
     <TextView
-        android:id="@+id/textViewYear"
+        android:id="@+id/textViewType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -41,6 +41,20 @@
         app:layout_constraintHorizontal_bias="0.688"
         app:layout_constraintStart_toEndOf="@+id/imageViewPoster"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        tools:text="1977" />
+
+    <TextView
+        android:id="@+id/textViewYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPoster"
+        app:layout_constraintTop_toBottomOf="@id/textViewType"
         tools:text="1977" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

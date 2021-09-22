@@ -34,6 +34,7 @@ class MovieDelegateAdapter(
     ) : RecyclerView.ViewHolder(view) {
         private val tvTitle: TextView = view.findViewById(R.id.textViewTitle)
         private val tvYear: TextView = view.findViewById(R.id.textViewYear)
+        private val tvType: TextView = view.findViewById(R.id.textViewType)
         private val ivPoster: ImageView = view.findViewById(R.id.imageViewPoster)
         private var currentId: Long? = null
 
@@ -47,6 +48,7 @@ class MovieDelegateAdapter(
             currentId = movie.idString.drop(2).toLong()
             tvTitle.text = movie.title
             tvYear.text = movie.year
+            tvType.text = movie.type
 
             Glide.with(itemView)
                 .load(movie.poster)

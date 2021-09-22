@@ -20,19 +20,19 @@ class MovieListViewModel : ViewModel() {
     val showError: LiveData<String>
         get() = isShowingErrorLiveData
 
-    fun search(text: String) {
+    fun search(text: String, year: String, type: String) {
         isLoadingLiveData.postValue(true)
         repository.searchMovies(
-            text = text,
+            text = text, year = year, type = type,
             onComplete = { movies ->
                 isLoadingLiveData.postValue(false)
                 movieListLiveData.postValue(movies)
             },
-            onError = {throwable ->
+            onError = { throwable ->
                 isLoadingLiveData.postValue(false)
                 movieListLiveData.postValue(null)
             },
-            message = {message ->
+            message = { message ->
                 isShowingErrorLiveData.postValue(message)
             }
         )

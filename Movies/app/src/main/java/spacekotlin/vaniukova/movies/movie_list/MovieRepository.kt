@@ -1,19 +1,18 @@
 package spacekotlin.vaniukova.movies.movie_list
 
 import spacekotlin.vaniukova.movies.network.API_KEY
-import spacekotlin.vaniukova.movies.network.ServerItemsWrapper
 import spacekotlin.vaniukova.movies.network.Network
-import java.lang.RuntimeException
+import spacekotlin.vaniukova.movies.network.ServerItemsWrapper
 
 class MovieRepository {
 
     fun searchMovies(
-        text: String,
+        text: String, year: String, type: String,
         onComplete: (List<Movie>) -> Unit,
         onError: (Throwable) -> Unit,
         message: (String) -> Unit
     ) {
-        Network.movieApi.getSearchMovieList(API_KEY, text)
+        Network.movieApi.getSearchMovieList(API_KEY, text, year, type)
             .enqueue(object : retrofit2.Callback<ServerItemsWrapper<Movie>> {
                 override fun onResponse(
                     call: retrofit2.Call<ServerItemsWrapper<Movie>>,
