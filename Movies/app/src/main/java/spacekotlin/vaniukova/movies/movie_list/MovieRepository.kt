@@ -6,13 +6,15 @@ import spacekotlin.vaniukova.movies.network.ServerItemsWrapper
 
 class MovieRepository {
 
+    var searchMovieList: List<Movie> = emptyList()
+
     fun searchMovies(
-        text: String, year: String, type: String,
+        text: String, year: String, type: String, page: Int,
         onComplete: (List<Movie>) -> Unit,
         onError: (Throwable) -> Unit,
         message: (String) -> Unit
     ) {
-        Network.movieApi.getSearchMovieList(API_KEY, text, year, type)
+        Network.movieApi.getSearchMovieList(API_KEY, text, year, type, page)
             .enqueue(object : retrofit2.Callback<ServerItemsWrapper<Movie>> {
                 override fun onResponse(
                     call: retrofit2.Call<ServerItemsWrapper<Movie>>,
@@ -22,7 +24,14 @@ class MovieRepository {
                         if (response.body()?.Error.orEmpty().isNotEmpty()){
                             message(response.body()?.Error.orEmpty())
                         }
-                        onComplete(response.body()?.Search.orEmpty())
+
+                        searchMovieList = if(page > 1){
+                            searchMovieList + response.body()?.Search.orEmpty()
+                        }else{
+                            response.body()?.Search.orEmpty()
+                        }
+                        onComplete(searchMovieList)
+
                     } else {
                         onError(RuntimeException("incorrect status code"))
                     }

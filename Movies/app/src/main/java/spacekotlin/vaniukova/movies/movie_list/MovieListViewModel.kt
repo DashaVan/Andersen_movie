@@ -8,7 +8,7 @@ class MovieListViewModel : ViewModel() {
 
     private val repository = MovieRepository()
     private val movieListLiveData = MutableLiveData<List<Movie>?>()
-    private val isLoadingLiveData = MutableLiveData<Boolean>(false)
+    private val isLoadingLiveData = MutableLiveData(false)
     private val isShowingErrorLiveData = MutableLiveData<String>()
 
     val movieList: MutableLiveData<List<Movie>?>
@@ -20,15 +20,15 @@ class MovieListViewModel : ViewModel() {
     val showError: LiveData<String>
         get() = isShowingErrorLiveData
 
-    fun search(text: String, year: String, type: String) {
+    fun search(text: String, year: String, type: String, page: Int) {
         isLoadingLiveData.postValue(true)
         repository.searchMovies(
-            text = text, year = year, type = type,
+            text = text, year = year, type = type, page = page,
             onComplete = { movies ->
                 isLoadingLiveData.postValue(false)
                 movieListLiveData.postValue(movies)
             },
-            onError = { throwable ->
+            onError = {
                 isLoadingLiveData.postValue(false)
                 movieListLiveData.postValue(null)
             },

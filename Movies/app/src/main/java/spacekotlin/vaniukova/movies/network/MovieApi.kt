@@ -11,6 +11,7 @@ interface MovieApi {
         @Query("apikey") apikey: String,
         @Query("s") title: String,
         @Query("y") year: String,
-        @Query("type") type: String
+        @Query("type") type: String,
+        @Query("page") page: Int
     ): Call<ServerItemsWrapper<Movie>>
 }

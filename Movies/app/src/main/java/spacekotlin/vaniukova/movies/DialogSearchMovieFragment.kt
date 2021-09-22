@@ -23,23 +23,22 @@ class DialogSearchMovieFragment : DialogFragment() {
             dismiss()
         }
 
+        var searchType = ""
+
+        binding.radioGroup.setOnCheckedChangeListener { _, i ->
+           searchType = when (i) {
+                binding.radioBtnMovies.id -> "movie"
+                binding.radioBtnSeries.id -> "series"
+                binding.radioBtnGames.id -> "game"
+                else -> ""
+            }
+        }
+
         binding.buttonSearch.setOnClickListener {
             if (binding.editTextTitle.text.isNotEmpty()) {
                 val searchByTitle = binding.editTextTitle.text.toString()
                 val searchYear = binding.editTextYear.text.toString()
-                val type =
-                    if (binding.checkBoxMovies.isChecked && binding.checkBoxSerials.isChecked) {
-                        ""
-                    } else {
-                        if (binding.checkBoxMovies.isChecked) {
-                            "movie"
-                        } else {
-                            if (binding.checkBoxSerials.isChecked) {
-                                "series"
-                            } else ""
-                        }
-                    }
-                (parentFragment as QueryMovie).query(searchByTitle, searchYear, type)
+                (parentFragment as QueryMovie).query(searchByTitle, searchYear, searchType, 1)
                 dismiss()
             } else {
                 Toast.makeText(

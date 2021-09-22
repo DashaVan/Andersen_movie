@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -24,6 +25,11 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
 
     private var errorDialog: AlertDialog? = null
     private var errorText: String = ""
+
+    private var lastQueryTitle = ""
+    private var lastQueryYear = ""
+    private var lastQueryType = ""
+    private var lastPage = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +55,11 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
 
         binding.btnSearch.setOnClickListener {
             showDialog(DialogSearchMovieFragment())
+        }
+
+        binding.btnMore.setOnClickListener {
+            lastPage++
+            query(lastQueryTitle, lastQueryYear, lastQueryType, lastPage)
         }
     }
 
@@ -78,14 +89,18 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
             recyclerViewMovies.isVisible = isLoading.not()
             progressBar.isVisible = isLoading
             btnSearch.isEnabled = isLoading.not()
+            btnMore.isEnabled = isLoading.not()
         }
 
         if (errorText.isNotEmpty()) {
             showErrorDialog(errorText)
+        } else {
+
         }
     }
 
     private fun showErrorDialog(text: String) {
+        binding.btnMore.visibility = View.GONE
         errorDialog = AlertDialog.Builder(requireContext())
             .setMessage(text)
             .setNegativeButton("Cancel", null)
@@ -96,8 +111,14 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
         dialog.show(childFragmentManager, "${dialog.tag}")
     }
 
-    override fun query(title: String, year: String, type: String) {
-        viewModel.search(title, year, type)
+    override fun query(title: String, year: String, type: String, page: Int) {
+        lastQueryTitle = title
+        lastQueryYear = year
+        lastQueryType = type
+        lastPage = page
+        viewModel.search(lastQueryTitle, lastQueryYear, lastQueryType, page)
         errorText = ""
+
+        binding.btnMore.visibility = View.VISIBLE
     }
 }
