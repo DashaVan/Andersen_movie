@@ -10,7 +10,17 @@ class MainActivity : AppCompatActivity(), Navigator {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigateTo(ListFragment(), "listFragment")
+        val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.container) != null
+
+        if (!alreadyHasFragment) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container, ListFragment())
+                //.addToBackStack("listFragment")
+                .commit()
+        }
+
+
+        //navigateTo(ListFragment(), "listFragment")
     }
 
     override fun navigateTo(fragment: Fragment, name: String) {

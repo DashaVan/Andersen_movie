@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import spacekotlin.vaniukova.movies.DialogSearchMovieFragment
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentListBinding
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
-class ListFragment: Fragment(R.layout.fragment_list) {
+class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
@@ -42,8 +44,12 @@ class ListFragment: Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindViewModel()
         initList()
+        bindViewModel()
+
+        binding.btnSearch.setOnClickListener {
+            showDialog(DialogSearchMovieFragment())
+        }
     }
 
     private fun initList() {
@@ -60,10 +66,6 @@ class ListFragment: Fragment(R.layout.fragment_list) {
     }
 
     private fun bindViewModel() {
-        binding.btnSearch.setOnClickListener {
-            query()
-        }
-
         with(viewModel){
             isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
             movieList.observe(viewLifecycleOwner) { movieAdapter.items = it }
@@ -83,16 +85,19 @@ class ListFragment: Fragment(R.layout.fragment_list) {
         }
     }
 
-    private fun query() {
-        val queryText = binding.editTextTitle.text.toString()
-        viewModel.search(queryText)
-        errorText = ""
-    }
-
     private fun showErrorDialog(text: String) {
         errorDialog = AlertDialog.Builder(requireContext())
             .setMessage(text)
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun showDialog(dialog: DialogFragment) {
+        dialog.show(childFragmentManager, "${dialog.tag}")
+    }
+
+    override fun query(title: String) {
+        viewModel.search(title)
+        errorText = ""
     }
 }

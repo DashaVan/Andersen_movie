@@ -6,4 +6,7 @@
     <string name="film">film</string>
     <string name="label">label</string>
     <string name="error">error</string>
+    <string name="enter_the_search_data">Enter the search data</string>
+    <string name="serials">Serials</string>
+    <string name="movies">Movies</string>
 </resources>
