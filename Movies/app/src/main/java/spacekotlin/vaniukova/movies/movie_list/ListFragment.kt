@@ -1,5 +1,6 @@
-package spacekotlin.vaniukova.movies
+package spacekotlin.vaniukova.movies.movie_list
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentListBinding
-import spacekotlin.vaniukova.movies.movie_list.MovieListAdapter
-import spacekotlin.vaniukova.movies.movie_list.MovieListViewModel
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 class ListFragment: Fragment(R.layout.fragment_list) {
@@ -19,6 +19,9 @@ class ListFragment: Fragment(R.layout.fragment_list) {
 
     private var movieAdapter: MovieListAdapter by autoCleared()
     private val viewModel: MovieListViewModel by viewModels()
+
+    private var errorDialog: AlertDialog? = null
+    private var errorText: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,13 +35,14 @@ class ListFragment: Fragment(R.layout.fragment_list) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        errorDialog?.dismiss()
+        errorDialog = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         bindViewModel()
-
         initList()
     }
 
@@ -55,37 +59,40 @@ class ListFragment: Fragment(R.layout.fragment_list) {
 
     }
 
-    private fun searchMovie() {
-
-    }
-
     private fun bindViewModel() {
         binding.btnSearch.setOnClickListener {
             query()
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
-        viewModel.movieList.observe(viewLifecycleOwner) { movieAdapter.items = it }
+        with(viewModel){
+            isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
+            movieList.observe(viewLifecycleOwner) { movieAdapter.items = it }
+            showError.observe(viewLifecycleOwner) { errorText = it }
+        }
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
-        binding.recyclerViewMovies.isVisible = isLoading.not()
-        binding.progressBar.isVisible = isLoading
-        binding.btnSearch.isEnabled = isLoading.not()
-        /*if (errorText.isNotEmpty()) {
-            showErrorMessage()
-        } else {
-            binding.btnRepeat.isVisible = false
-            binding.textViewError.isVisible = false
-        }*/
+        with(binding){
+            recyclerViewMovies.isVisible = isLoading.not()
+            progressBar.isVisible = isLoading
+            btnSearch.isEnabled = isLoading.not()
+        }
+
+        if (errorText.isNotEmpty()) {
+            showErrorDialog(errorText)
+        }
     }
 
     private fun query() {
         val queryText = binding.editTextTitle.text.toString()
         viewModel.search(queryText)
-        /*if (binding.recyclerViewMovies.isEmpty()) {
-            errorText = "фильм не найден"
-                //TODO dialog film not found
-        }*/
+        errorText = ""
+    }
+
+    private fun showErrorDialog(text: String) {
+        errorDialog = AlertDialog.Builder(requireContext())
+            .setMessage(text)
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }

@@ -1,16 +1,17 @@
 package spacekotlin.vaniukova.movies.movie_list
 
-import android.util.Log
 import spacekotlin.vaniukova.movies.network.API_KEY
 import spacekotlin.vaniukova.movies.network.ServerItemsWrapper
 import spacekotlin.vaniukova.movies.network.Network
+import java.lang.RuntimeException
 
 class MovieRepository {
 
     fun searchMovies(
         text: String,
         onComplete: (List<Movie>) -> Unit,
-        onError: (Throwable) -> Unit
+        onError: (Throwable) -> Unit,
+        message: (String) -> Unit
     ) {
         Network.movieApi.getSearchMovieList(API_KEY, text)
             .enqueue(object : retrofit2.Callback<ServerItemsWrapper<Movie>> {
@@ -19,6 +20,9 @@ class MovieRepository {
                     response: retrofit2.Response<ServerItemsWrapper<Movie>>
                 ) {
                     if (response.isSuccessful) {
+                        if (response.body()?.Error.orEmpty().isNotEmpty()){
+                            message(response.body()?.Error.orEmpty())
+                        }
                         onComplete(response.body()?.Search.orEmpty())
                     } else {
                         onError(RuntimeException("incorrect status code"))
@@ -29,7 +33,7 @@ class MovieRepository {
                     call: retrofit2.Call<ServerItemsWrapper<Movie>>,
                     t: Throwable
                 ) {
-                    Log.e("Server", "execute request error = ${t.message}", t)
+                    onError(t)
                 }
             })
     }
