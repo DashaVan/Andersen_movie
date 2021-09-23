@@ -43,7 +43,7 @@ class DialogSearchMovieFragment : DialogFragment() {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "поле title обязательно для заполнения",
+                    R.string.dialog_message_fill_title,
                     Toast.LENGTH_SHORT
                 )
                     .show()

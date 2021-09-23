@@ -12,4 +12,5 @@
     <string name="game">Games</string>
     <string name="all">All</string>
     <string name="more">more</string>
+    <string name="dialog_message_fill_title">Fill in the "Title" field</string>
 </resources>

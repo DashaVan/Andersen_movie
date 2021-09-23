@@ -1,5 +1,8 @@
 package spacekotlin.vaniukova.movies.movie_list
 
+import android.util.Log
+import retrofit2.Call
+import retrofit2.Response
 import spacekotlin.vaniukova.movies.network.API_KEY
 import spacekotlin.vaniukova.movies.network.Network
 import spacekotlin.vaniukova.movies.network.ServerItemsWrapper
@@ -88,4 +91,31 @@ class MovieRepository {
             })
     }
 */
+
+
+    var topMoviesList = mutableListOf<Movie>()
+
+    fun fetchTopMovies(
+        movieIds: List<String>,
+        onMoviesFetched: (listMovies: List<Movie>) -> Unit
+    ) {
+        movieIds.forEach { movieId ->
+            Network.movieApi.getMovieById(API_KEY, movieId)
+                .enqueue(object : retrofit2.Callback<Movie> {
+                    override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                        if (response.isSuccessful) {
+                            response.body()?.let {
+                                topMoviesList += listOf(it)
+                                onMoviesFetched(topMoviesList) }
+                        } else {
+                            Log.e("Server", "incorrect status code")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Movie>, t: Throwable) {
+                        Log.e("Server", "execute request error = ${t.message}", t)
+                    }
+                })
+        }
+    }
 }

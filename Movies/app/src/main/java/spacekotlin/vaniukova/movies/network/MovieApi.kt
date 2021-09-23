@@ -14,4 +14,10 @@ interface MovieApi {
         @Query("type") type: String,
         @Query("page") page: Int
     ): Call<ServerItemsWrapper<Movie>>
+
+    @GET("/")
+    fun getMovieById(
+        @Query("apikey") apikey: String,
+        @Query("i") id: String
+    ): Call<Movie>
 }

@@ -3,7 +3,7 @@ package spacekotlin.vaniukova.movies
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import spacekotlin.vaniukova.movies.movie_list.ListFragment
+import spacekotlin.vaniukova.movies.top_movies_list.TopMoviesFragment
 
 class MainActivity : AppCompatActivity(), Navigator {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(), Navigator {
 
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.container, ListFragment())
+                .add(R.id.container, TopMoviesFragment())
                 //.addToBackStack("listFragment")
                 .commit()
         }
