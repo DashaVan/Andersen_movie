@@ -3,24 +3,29 @@ package spacekotlin.vaniukova.movies
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import spacekotlin.vaniukova.movies.databinding.ActivityMainBinding
+import spacekotlin.vaniukova.movies.movie_list.ListFragment
 import spacekotlin.vaniukova.movies.top_movies_list.TopMoviesFragment
 
-class MainActivity : AppCompatActivity(), Navigator {
+class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initToolbar()
 
         val alreadyHasFragment = supportFragmentManager.findFragmentById(R.id.container) != null
-
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, TopMoviesFragment())
                 //.addToBackStack("listFragment")
                 .commit()
         }
-
-
-        //navigateTo(ListFragment(), "listFragment")
     }
 
     override fun navigateTo(fragment: Fragment, name: String) {
@@ -28,5 +33,29 @@ class MainActivity : AppCompatActivity(), Navigator {
             .replace(R.id.container, fragment)
             .addToBackStack(name)
             .commit()
+    }
+
+    private fun initToolbar() {
+        binding.toolbar.setNavigationOnClickListener {
+
+        }
+
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_top -> {
+                    navigateTo(TopMoviesFragment(), "topMoviesFragment")
+                    true
+                }
+                R.id.action_favourites -> {
+                    //navigateTo(FavouritesFragment(), "favouritesFragment")
+                    true
+                }
+                R.id.action_search -> {
+                    navigateTo(ListFragment(), "listFragment")
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

@@ -53,6 +53,8 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
         initList()
         bindViewModel()
 
+        showDialog(DialogSearchMovieFragment())
+
         binding.btnSearch.setOnClickListener {
             showDialog(DialogSearchMovieFragment())
         }
@@ -94,8 +96,6 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
 
         if (errorText.isNotEmpty()) {
             showErrorDialog(errorText)
-        } else {
-
         }
     }
 
