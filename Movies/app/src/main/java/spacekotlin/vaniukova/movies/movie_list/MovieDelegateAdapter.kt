@@ -11,7 +11,7 @@ import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.inflate
 
 class MovieDelegateAdapter(
-    private val onItemClicked: (id: Long) -> Unit
+    private val onItemClicked: (id: String) -> Unit
 ) : AbsListItemAdapterDelegate<Movie, Movie, MovieDelegateAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
@@ -30,13 +30,13 @@ class MovieDelegateAdapter(
 
     class Holder(
         view: View,
-        onItemClicked: (id: Long) -> Unit
+        onItemClicked: (id: String) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         private val tvTitle: TextView = view.findViewById(R.id.textViewTitle)
         private val tvYear: TextView = view.findViewById(R.id.textViewYear)
         private val tvType: TextView = view.findViewById(R.id.textViewType)
         private val ivPoster: ImageView = view.findViewById(R.id.imageViewPoster)
-        private var currentId: Long? = null
+        private var currentId: String? = null
 
         init {
             view.setOnClickListener {
@@ -45,7 +45,7 @@ class MovieDelegateAdapter(
         }
 
         fun bind(movie: Movie) {
-            currentId = movie.idString.drop(2).toLong()
+            currentId = movie.idString
             tvTitle.text = movie.title
             tvYear.text = movie.year
             tvType.text = movie.type
@@ -53,7 +53,6 @@ class MovieDelegateAdapter(
             Glide.with(itemView)
                 .load(movie.poster)
                 .placeholder(R.drawable.noposter)
-                //.error(R.drawable.cat)
                 .into(ivPoster)
         }
     }

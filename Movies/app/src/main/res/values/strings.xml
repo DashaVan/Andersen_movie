@@ -15,4 +15,6 @@
     <string name="dialog_message_fill_title">Fill in the "Title" field</string>
     <string name="favourites">Favourites</string>
     <string name="top_25">Top-25</string>
+    <string name="type">Type:</string>
+    <string name="year_detail">Year:</string>
 </resources>

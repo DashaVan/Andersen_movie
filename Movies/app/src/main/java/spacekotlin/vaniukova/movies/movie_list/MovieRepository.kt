@@ -50,38 +50,26 @@ class MovieRepository {
     }
 
 
-    /*fun searchMovie1(
-        text: String,
-        onComplete: (List<Movie>) -> Unit,
-        onError: (Throwable) -> Unit
+    fun searchMovieById(
+        idString: String,
+        onComplete: (Movie) -> Unit
     ) {
-        Network.movieApi.getSearchMovieList(API_KEY, text)
+        Network.movieApi.getMovieById(API_KEY, idString)
             .enqueue(object : retrofit2.Callback<Movie> {
                 override fun onResponse(
                     call: retrofit2.Call<Movie>,
                     response: retrofit2.Response<Movie>
                 ) {
-                    Log.d("listFragment", "response")
                     if (response.isSuccessful) {
-                        Log.d("Server", "response is successful")
-
-
-
-                        val list = mutableListOf<Movie>()
-                        *//*val idString = response.body()?.idString.orEmpty()
-                        val title = response.body()?.title.orEmpty()
-                        val year = response.body()?.year.orEmpty()
-                        val poster = response.body()?.poster.orEmpty()*//*
-
-                        //val movie = Movie(idString, title, year, poster)
-                        val movie1 = response.body()
-
-                        if (movie1 != null) {
-                            list.add(movie1)
+                        val movie = response.body()
+                        if (movie != null) {
+                            onComplete(movie)
+                        } else {
+                            val errorMovie = Movie("", "Film not found", "", "", "", "")
+                            onComplete(errorMovie)
                         }
-                        onComplete(list)
                     } else {
-                        onError(RuntimeException("incorrect status code"))
+                        Log.e("Server", "incorrect status code")
                     }
                 }
 
@@ -90,7 +78,6 @@ class MovieRepository {
                 }
             })
     }
-*/
 
 
     var topMoviesList = mutableListOf<Movie>()

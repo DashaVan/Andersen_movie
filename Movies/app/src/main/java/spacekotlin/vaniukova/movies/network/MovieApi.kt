@@ -18,6 +18,7 @@ interface MovieApi {
     @GET("/")
     fun getMovieById(
         @Query("apikey") apikey: String,
-        @Query("i") id: String
+        @Query("i") id: String,
+        @Query("plot") plot: String = "full"
     ): Call<Movie>
 }

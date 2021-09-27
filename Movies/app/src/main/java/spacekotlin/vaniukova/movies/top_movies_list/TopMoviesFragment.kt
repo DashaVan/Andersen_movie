@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import spacekotlin.vaniukova.movies.Navigator
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentTopMoviesBinding
+import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
 import spacekotlin.vaniukova.movies.movie_list.MovieListAdapter
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
@@ -49,8 +51,8 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
         }
     }
 
-    private fun openDetailFragment(id: Long) {
-
+    private fun openDetailFragment(id: String) {
+        (activity as Navigator).navigateTo(DetailFragment.newInstance(id), "detailFragment")
     }
 
     private fun bindViewModel() {

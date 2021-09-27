@@ -1,7 +1,8 @@
 package spacekotlin.vaniukova.movies
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import spacekotlin.vaniukova.movies.databinding.ActivityMainBinding
 import spacekotlin.vaniukova.movies.movie_list.ListFragment
@@ -55,6 +56,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
                     true
                 }
                 else -> false
+            }
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
+            if (currentFragment is TopMoviesFragment) {
+                Toast.makeText(applicationContext, "Click again", Toast.LENGTH_SHORT).show()
+                binding.toolbar.setNavigationOnClickListener {
+                    finish()
+                }
+            } else {
+                supportFragmentManager.popBackStack()
             }
         }
     }

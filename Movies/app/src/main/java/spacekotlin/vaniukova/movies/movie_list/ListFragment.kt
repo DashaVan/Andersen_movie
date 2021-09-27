@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import spacekotlin.vaniukova.movies.DialogSearchMovieFragment
+import spacekotlin.vaniukova.movies.Navigator
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentListBinding
+import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
@@ -74,12 +75,12 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
         }
     }
 
-    private fun openDetailFragment(id: Long) {
-
+    private fun openDetailFragment(id: String) {
+        (activity as Navigator).navigateTo(DetailFragment.newInstance(id), "detailFragment")
     }
 
     private fun bindViewModel() {
-        with(viewModel){
+        with(viewModel) {
             isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
             movieList.observe(viewLifecycleOwner) { movieAdapter.items = it }
             showError.observe(viewLifecycleOwner) { errorText = it }
