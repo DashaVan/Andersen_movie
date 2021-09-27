@@ -17,6 +17,8 @@ import spacekotlin.vaniukova.movies.databinding.FragmentListBinding
 import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
+var dialogSearchMovieShowed = false
+
 class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -54,7 +56,9 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
         initList()
         bindViewModel()
 
-        showDialog(DialogSearchMovieFragment())
+        if(!dialogSearchMovieShowed){
+            showDialog(DialogSearchMovieFragment())
+        }
 
         binding.btnSearch.setOnClickListener {
             showDialog(DialogSearchMovieFragment())
@@ -110,6 +114,7 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
 
     private fun showDialog(dialog: DialogFragment) {
         dialog.show(childFragmentManager, "${dialog.tag}")
+        dialogSearchMovieShowed = true
     }
 
     override fun query(title: String, year: String, type: String, page: Int) {

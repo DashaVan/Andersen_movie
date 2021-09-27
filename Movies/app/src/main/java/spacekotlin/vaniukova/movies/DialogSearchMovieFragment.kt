@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import spacekotlin.vaniukova.movies.databinding.DialogSearchMovieFragmentBinding
 import spacekotlin.vaniukova.movies.movie_list.QueryMovie
+import spacekotlin.vaniukova.movies.movie_list.dialogSearchMovieShowed
 
 class DialogSearchMovieFragment : DialogFragment() {
 
@@ -20,6 +21,7 @@ class DialogSearchMovieFragment : DialogFragment() {
             .setView(binding.root)
 
         binding.ibCancel.setOnClickListener {
+            dialogSearchMovieShowed = false
             dismiss()
         }
 
@@ -39,6 +41,7 @@ class DialogSearchMovieFragment : DialogFragment() {
                 val searchByTitle = binding.editTextTitle.text.toString()
                 val searchYear = binding.editTextYear.text.toString()
                 (parentFragment as QueryMovie).query(searchByTitle, searchYear, searchType, 1)
+                dialogSearchMovieShowed = false
                 dismiss()
             } else {
                 Toast.makeText(
