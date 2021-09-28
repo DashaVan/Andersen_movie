@@ -3,7 +3,7 @@ package spacekotlin.vaniukova.movies.network
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import spacekotlin.vaniukova.movies.movie_list.Movie
+import spacekotlin.vaniukova.movies.movie.Movie
 
 interface MovieApi {
     @GET("/")

@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import spacekotlin.vaniukova.movies.MainActivity
 import spacekotlin.vaniukova.movies.Navigator
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentTopMoviesBinding
 import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
-import spacekotlin.vaniukova.movies.movie_list.MovieListAdapter
+import spacekotlin.vaniukova.movies.movie.MovieListAdapter
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
@@ -37,6 +38,7 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setToolbarTitle("TOP-25")
 
         initList()
         bindViewModel()

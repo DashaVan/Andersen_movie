@@ -3,12 +3,12 @@ package spacekotlin.vaniukova.movies.detail_movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import spacekotlin.vaniukova.movies.movie_list.Movie
-import spacekotlin.vaniukova.movies.movie_list.MovieRepository
+import spacekotlin.vaniukova.movies.movie.Movie
+import spacekotlin.vaniukova.movies.movie.MovieRepositoryNetwork
 
 class DetailFragmentViewModel : ViewModel() {
 
-    private val repository = MovieRepository()
+    private val repository = MovieRepositoryNetwork()
     private val detailMovieLiveData = MutableLiveData<Movie>()
     private val isLoadingLiveData = MutableLiveData(false)
 

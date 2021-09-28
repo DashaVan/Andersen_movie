@@ -1,7 +1,8 @@
-package spacekotlin.vaniukova.movies.movie_list
+package spacekotlin.vaniukova.movies.movie
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+import spacekotlin.vaniukova.movies.movie_list_search.MovieDelegateAdapter
 
 class MovieListAdapter(
     onItemClicked: (id: String) -> Unit

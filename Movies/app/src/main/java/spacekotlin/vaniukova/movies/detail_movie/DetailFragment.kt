@@ -8,9 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import spacekotlin.vaniukova.movies.MainActivity
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentDetailBinding
-import spacekotlin.vaniukova.movies.movie_list.Movie
+import spacekotlin.vaniukova.movies.movie.Movie
 import spacekotlin.vaniukova.movies.withArguments
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -41,6 +42,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setToolbarTitle("Detailed information")
 
         val idString = requireArguments().getString(KEY)
         bindViewModel()

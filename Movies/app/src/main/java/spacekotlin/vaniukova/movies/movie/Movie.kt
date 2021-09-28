@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies.movie_list
+package spacekotlin.vaniukova.movies.movie
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

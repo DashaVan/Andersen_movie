@@ -1,12 +1,14 @@
-package spacekotlin.vaniukova.movies.movie_list
+package spacekotlin.vaniukova.movies.movie_list_search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import spacekotlin.vaniukova.movies.movie.Movie
+import spacekotlin.vaniukova.movies.movie.MovieRepositoryNetwork
 
-class MovieListViewModel : ViewModel() {
+class ListSearchMovieViewModel : ViewModel() {
 
-    private val repository = MovieRepository()
+    private val repository = MovieRepositoryNetwork()
     private val movieListLiveData = MutableLiveData<List<Movie>?>()
     private val isLoadingLiveData = MutableLiveData(false)
     private val isShowingErrorLiveData = MutableLiveData<String>()

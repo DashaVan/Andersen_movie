@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies.movie_list
+package spacekotlin.vaniukova.movies.movie
 
 import android.util.Log
 import retrofit2.Call
@@ -7,7 +7,7 @@ import spacekotlin.vaniukova.movies.network.API_KEY
 import spacekotlin.vaniukova.movies.network.Network
 import spacekotlin.vaniukova.movies.network.ServerItemsWrapper
 
-class MovieRepository {
+class MovieRepositoryNetwork {
 
     var searchMovieList: List<Movie> = emptyList()
 

@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies.movie_list
+package spacekotlin.vaniukova.movies.movie_list_search
 
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.inflate
+import spacekotlin.vaniukova.movies.movie.Movie
 
 class MovieDelegateAdapter(
     private val onItemClicked: (id: String) -> Unit

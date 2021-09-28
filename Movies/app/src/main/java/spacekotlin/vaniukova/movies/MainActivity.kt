@@ -5,7 +5,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import spacekotlin.vaniukova.movies.databinding.ActivityMainBinding
-import spacekotlin.vaniukova.movies.movie_list.ListFragment
+import spacekotlin.vaniukova.movies.favourite_movies.FavouriteMoviesFragment
+import spacekotlin.vaniukova.movies.movie_list_search.ListSearchMovieFragment
 import spacekotlin.vaniukova.movies.top_movies_list.TopMoviesFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
         if (!alreadyHasFragment) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, TopMoviesFragment())
-                //.addToBackStack("listFragment")
                 .commit()
         }
     }
@@ -37,10 +37,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
     }
 
     private fun initToolbar() {
-        binding.toolbar.setNavigationOnClickListener {
-
-        }
-
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_top -> {
@@ -48,11 +44,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
                     true
                 }
                 R.id.action_favourites -> {
-                    //navigateTo(FavouritesFragment(), "favouritesFragment")
+                    navigateTo(FavouriteMoviesFragment(), "favouriteMoviesFragment")
                     true
                 }
                 R.id.action_search -> {
-                    navigateTo(ListFragment(), "listFragment")
+                    navigateTo(ListSearchMovieFragment(), "listSearchMovieFragment")
                     true
                 }
                 else -> false
@@ -62,7 +58,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
         binding.toolbar.setNavigationOnClickListener {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
             if (currentFragment is TopMoviesFragment) {
-                Toast.makeText(applicationContext, "Click again", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.click_again, Toast.LENGTH_SHORT).show()
                 binding.toolbar.setNavigationOnClickListener {
                     finish()
                 }
@@ -70,5 +66,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
                 supportFragmentManager.popBackStack()
             }
         }
+    }
+
+    fun setToolbarTitle(title:String){
+        binding.toolbar.title = title
     }
 }

@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies.movie_list
+package spacekotlin.vaniukova.movies.movie_list_search
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,21 +10,22 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import spacekotlin.vaniukova.movies.DialogSearchMovieFragment
+import spacekotlin.vaniukova.movies.MainActivity
 import spacekotlin.vaniukova.movies.Navigator
 import spacekotlin.vaniukova.movies.R
-import spacekotlin.vaniukova.movies.databinding.FragmentListBinding
+import spacekotlin.vaniukova.movies.databinding.FragmentListSearchMovieBinding
 import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
+import spacekotlin.vaniukova.movies.movie.MovieListAdapter
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 var dialogSearchMovieShowed = false
 
-class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
-    private var _binding: FragmentListBinding? = null
+class ListSearchMovieFragment : Fragment(R.layout.fragment_list_search_movie), QueryMovie {
+    private var _binding: FragmentListSearchMovieBinding? = null
     private val binding get() = _binding!!
 
     private var movieAdapter: MovieListAdapter by autoCleared()
-    private val viewModel: MovieListViewModel by viewModels()
+    private val viewModel: ListSearchMovieViewModel by viewModels()
 
     private var errorDialog: AlertDialog? = null
     private var errorText: String = ""
@@ -39,7 +40,7 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+        _binding = FragmentListSearchMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,6 +53,7 @@ class ListFragment : Fragment(R.layout.fragment_list), QueryMovie {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setToolbarTitle("Search")
 
         initList()
         bindViewModel()

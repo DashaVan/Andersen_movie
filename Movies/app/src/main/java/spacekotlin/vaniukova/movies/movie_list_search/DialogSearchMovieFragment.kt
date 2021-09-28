@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies
+package spacekotlin.vaniukova.movies.movie_list_search
 
 import android.app.Dialog
 import android.os.Bundle
@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.DialogSearchMovieFragmentBinding
-import spacekotlin.vaniukova.movies.movie_list.QueryMovie
-import spacekotlin.vaniukova.movies.movie_list.dialogSearchMovieShowed
 
 class DialogSearchMovieFragment : DialogFragment() {
 
