@@ -1,5 +1,6 @@
 package spacekotlin.vaniukova.movies.top_movies_list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import spacekotlin.vaniukova.movies.MainActivity
 import spacekotlin.vaniukova.movies.Navigator
 import spacekotlin.vaniukova.movies.R
+import spacekotlin.vaniukova.movies.data.db.models.TopMovieDB
 import spacekotlin.vaniukova.movies.databinding.FragmentTopMoviesBinding
 import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
+import spacekotlin.vaniukova.movies.movie.Movie
 import spacekotlin.vaniukova.movies.movie.MovieListAdapter
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
     private var _binding: FragmentTopMoviesBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedPrefs by lazy {
+        requireContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
+    var firstRun: Boolean = true
 
     private var topMoviesAdapter: MovieListAdapter by autoCleared()
     private val topMoviesViewModel: TopMoviesViewModel by viewModels()
@@ -40,8 +49,14 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setToolbarTitle("TOP-25")
 
+        firstRun = sharedPrefs.getBoolean(FIRST_RUN, true)
+        if (firstRun) {
+            bindViewModelNetwork()
+            sharedPrefs.edit().putBoolean(FIRST_RUN, false).apply()
+        } else {
+            bindViewModelDB()
+        }
         initList()
-        bindViewModel()
     }
 
     private fun initList() {
@@ -54,11 +69,34 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
     }
 
     private fun openDetailFragment(id: String) {
-        (activity as Navigator).navigateTo(DetailFragment.newInstance(id), "detailFragment")
+        (activity as Navigator).navigateTo(DetailFragment.newInstance(id, false), "detailFragment")
     }
 
-    private fun bindViewModel() {
+    private fun bindViewModelNetwork() {
         topMoviesViewModel.topMovies.observe(viewLifecycleOwner) { topMoviesAdapter.items = it }
         topMoviesViewModel.requestMovies()
+    }
+
+    private fun bindViewModelDB() {
+        topMoviesViewModel.dbTopMovies.observe(viewLifecycleOwner) { list ->
+            topMoviesAdapter.items = list.map { transformMovieDBtoMovie(it) }
+        }
+        topMoviesViewModel.loadListFromDB()
+    }
+
+    private fun transformMovieDBtoMovie(topMovieDB: TopMovieDB): Movie {
+        return Movie(
+            topMovieDB.idString,
+            topMovieDB.title,
+            topMovieDB.year,
+            topMovieDB.type,
+            topMovieDB.poster,
+            topMovieDB.plot
+        )
+    }
+
+    companion object {
+        private const val SHARED_PREFS_NAME = "movies_shared_pref"
+        private const val FIRST_RUN = "first_run"
     }
 }

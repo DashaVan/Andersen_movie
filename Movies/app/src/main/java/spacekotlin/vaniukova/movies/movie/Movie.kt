@@ -2,6 +2,7 @@ package spacekotlin.vaniukova.movies.movie
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.IgnoredOnParcel
 
 @JsonClass(generateAdapter = true)
 data class Movie(
@@ -16,5 +17,7 @@ data class Movie(
     @Json(name = "Poster")
     val poster: String,
     @Json(name = "Plot")
-    val plot: String = ""
+    val plot: String = "",
+    @IgnoredOnParcel
+    var isFavourite: Boolean = false
 )

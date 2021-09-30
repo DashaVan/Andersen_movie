@@ -82,7 +82,7 @@ class ListSearchMovieFragment : Fragment(R.layout.fragment_list_search_movie), Q
     }
 
     private fun openDetailFragment(id: String) {
-        (activity as Navigator).navigateTo(DetailFragment.newInstance(id), "detailFragment")
+        (activity as Navigator).navigateTo(DetailFragment.newInstance(id, false), "detailFragment")
     }
 
     private fun bindViewModel() {

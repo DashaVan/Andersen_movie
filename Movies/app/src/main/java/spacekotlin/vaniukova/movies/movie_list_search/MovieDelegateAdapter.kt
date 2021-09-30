@@ -38,6 +38,7 @@ class MovieDelegateAdapter(
         private val tvType: TextView = view.findViewById(R.id.textViewType)
         private val ivPoster: ImageView = view.findViewById(R.id.imageViewPoster)
         private var currentId: String? = null
+        private val btnStar: ImageView = view.findViewById(R.id.ibStar)
 
         init {
             view.setOnClickListener {

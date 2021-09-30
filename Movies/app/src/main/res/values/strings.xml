@@ -18,4 +18,5 @@
     <string name="type">Type:</string>
     <string name="year_detail">Year:</string>
     <string name="click_again">Click again</string>
+    <string name="added_favourites">Added to favourites</string>
 </resources>
