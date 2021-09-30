@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import spacekotlin.vaniukova.movies.data.MovieDBRepository
+import spacekotlin.vaniukova.movies.data.MovieRepositoryNetwork
 import spacekotlin.vaniukova.movies.data.db.models.MovieDB
 import spacekotlin.vaniukova.movies.movie.Movie
-import spacekotlin.vaniukova.movies.movie.MovieRepositoryNetwork
+
 
 class DetailFragmentViewModel : ViewModel() {
 

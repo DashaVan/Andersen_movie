@@ -1,4 +1,4 @@
-package spacekotlin.vaniukova.movies.movie_list_search
+package spacekotlin.vaniukova.movies.movie.adapter
 
 import android.view.View
 import android.view.ViewGroup

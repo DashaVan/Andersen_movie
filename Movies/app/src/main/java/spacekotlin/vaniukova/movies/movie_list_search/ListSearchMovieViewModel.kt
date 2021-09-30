@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import spacekotlin.vaniukova.movies.movie.Movie
-import spacekotlin.vaniukova.movies.movie.MovieRepositoryNetwork
+import spacekotlin.vaniukova.movies.data.MovieRepositoryNetwork
 
 class ListSearchMovieViewModel : ViewModel() {
 

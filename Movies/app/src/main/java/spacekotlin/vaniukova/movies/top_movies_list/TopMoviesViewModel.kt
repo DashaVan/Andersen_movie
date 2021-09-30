@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import spacekotlin.vaniukova.movies.data.MovieDBRepository
 import spacekotlin.vaniukova.movies.data.db.models.TopMovieDB
 import spacekotlin.vaniukova.movies.movie.Movie
-import spacekotlin.vaniukova.movies.movie.MovieRepositoryNetwork
+import spacekotlin.vaniukova.movies.data.MovieRepositoryNetwork
 
 class TopMoviesViewModel : ViewModel() {
 
@@ -29,13 +29,9 @@ class TopMoviesViewModel : ViewModel() {
 
     private val movieDBRepository = MovieDBRepository()
     private val dbTopMoviesLiveData = MutableLiveData<List<TopMovieDB>>()
-    private val dbIsNotEmptyLiveData = MutableLiveData<Boolean>()
 
     val dbTopMovies: MutableLiveData<List<TopMovieDB>>
         get() = dbTopMoviesLiveData
-
-    val dbIsNotEmpty: MutableLiveData<Boolean>
-        get() = dbIsNotEmptyLiveData
 
     private fun saveTopMovies(
         movie: Movie
@@ -51,7 +47,6 @@ class TopMoviesViewModel : ViewModel() {
 
         viewModelScope.launch {
             movieDBRepository.saveTopMovie(topMovie)
-            dbIsNotEmptyLiveData.postValue(true)
         }
     }
 
@@ -59,10 +54,8 @@ class TopMoviesViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 dbTopMoviesLiveData.postValue(movieDBRepository.getAllTopMovies())
-                dbIsNotEmptyLiveData.postValue(true)
             } catch (t: Throwable) {
                 dbTopMoviesLiveData.postValue(emptyList())
-                dbIsNotEmptyLiveData.postValue(false)
             }
         }
     }

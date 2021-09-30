@@ -1,8 +1,9 @@
-package spacekotlin.vaniukova.movies.movie
+package spacekotlin.vaniukova.movies.data
 
 import android.util.Log
 import retrofit2.Call
 import retrofit2.Response
+import spacekotlin.vaniukova.movies.movie.Movie
 import spacekotlin.vaniukova.movies.network.API_KEY
 import spacekotlin.vaniukova.movies.network.Network
 import spacekotlin.vaniukova.movies.network.ServerItemsWrapper

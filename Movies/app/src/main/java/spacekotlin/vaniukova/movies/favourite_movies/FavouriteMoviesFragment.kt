@@ -14,7 +14,7 @@ import spacekotlin.vaniukova.movies.data.db.models.MovieDB
 import spacekotlin.vaniukova.movies.databinding.FragmentTopMoviesBinding
 import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
 import spacekotlin.vaniukova.movies.movie.Movie
-import spacekotlin.vaniukova.movies.movie.MovieListAdapter
+import spacekotlin.vaniukova.movies.movie.adapter.MovieListAdapter
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 class FavouriteMoviesFragment: Fragment(R.layout.fragment_top_movies) {

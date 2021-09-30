@@ -15,7 +15,7 @@ import spacekotlin.vaniukova.movies.Navigator
 import spacekotlin.vaniukova.movies.R
 import spacekotlin.vaniukova.movies.databinding.FragmentListSearchMovieBinding
 import spacekotlin.vaniukova.movies.detail_movie.DetailFragment
-import spacekotlin.vaniukova.movies.movie.MovieListAdapter
+import spacekotlin.vaniukova.movies.movie.adapter.MovieListAdapter
 import spacekotlin.vaniukova.movies.utils.autoCleared
 
 var dialogSearchMovieShowed = false

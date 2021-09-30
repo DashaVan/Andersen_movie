@@ -54,14 +54,16 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         queryById(idString!!)
 
         binding.imageButtonStar.setOnClickListener{
-            if (isFavouriteMovie == false){
+            if (!isFavouriteMovie) {
                 addFavourites()
-            }else{
+                isFavouriteMovie = true
+            } else {
                 removeFavouriteMovie()
+                isFavouriteMovie = false
             }
         }
 
-        if(isFavouriteMovie == true){
+        if (isFavouriteMovie) {
             binding.imageButtonStar.setImageResource(R.drawable.ic_star_yellow)
         }
     }
@@ -70,7 +72,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         with(detailFragmentViewModel) {
             isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
             detailMovie.observe(viewLifecycleOwner) { dMovie = it }
-            //existingMovieLiveData.observe(viewLifecycleOwner) { dMovie }
         }
 
     }
