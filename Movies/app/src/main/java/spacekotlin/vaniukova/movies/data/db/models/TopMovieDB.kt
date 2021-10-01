@@ -12,7 +12,7 @@ data class TopMovieDB(
     @ColumnInfo(name = TopMoviesContract.Columns.TITLE)
     val title: String,
     @ColumnInfo(name = TopMoviesContract.Columns.YEAR)
-    val year: String,
+    val year: Int,
     @ColumnInfo(name = TopMoviesContract.Columns.TYPE)
     val type: String,
     @ColumnInfo(name = TopMoviesContract.Columns.POSTER)

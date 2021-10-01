@@ -36,9 +36,13 @@ class TopMoviesViewModel : ViewModel() {
 
     private val movieDBRepository = MovieDBRepository()
     private val dbTopMoviesLiveData = MutableLiveData<List<TopMovieDB>>()
+    private val dbTopWithYearLiveData = MutableLiveData<List<TopMovieDB>>()
 
     val dbTopMovies: MutableLiveData<List<TopMovieDB>>
         get() = dbTopMoviesLiveData
+
+    val dbTopWithYear: MutableLiveData<List<TopMovieDB>>
+        get() = dbTopWithYearLiveData
 
     private fun saveTopMovies(
         movie: Movie
@@ -46,7 +50,7 @@ class TopMoviesViewModel : ViewModel() {
         val topMovie = TopMovieDB(
             idString = movie.idString,
             title = movie.title,
-            year = movie.year,
+            year = movie.year.toInt(),
             type = movie.type,
             poster = movie.poster,
             plot = movie.plot,
@@ -63,6 +67,36 @@ class TopMoviesViewModel : ViewModel() {
                 dbTopMoviesLiveData.postValue(movieDBRepository.getAllTopMovies())
             } catch (t: Throwable) {
                 dbTopMoviesLiveData.postValue(emptyList())
+            }
+        }
+    }
+
+    fun loadTopWithYearFromDB(year:Int) {
+        viewModelScope.launch {
+            try {
+                dbTopWithYearLiveData.postValue(movieDBRepository.getAllWithYearMoreThan(year))
+            } catch (t: Throwable) {
+                dbTopWithYearLiveData.postValue(emptyList())
+            }
+        }
+    }
+
+    fun loadTopWithDescending() {
+        viewModelScope.launch {
+            try {
+                dbTopWithYearLiveData.postValue(movieDBRepository.getAllWithYearDescending())
+            } catch (t: Throwable) {
+                dbTopWithYearLiveData.postValue(emptyList())
+            }
+        }
+    }
+
+    fun loadTopWithAscending() {
+        viewModelScope.launch {
+            try {
+                dbTopWithYearLiveData.postValue(movieDBRepository.getAllWithYearAscending())
+            } catch (t: Throwable) {
+                dbTopWithYearLiveData.postValue(emptyList())
             }
         }
     }

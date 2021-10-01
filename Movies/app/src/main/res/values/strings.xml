@@ -25,4 +25,12 @@
     <string name="ok">OK</string>
     <string name="please_check_connection">Please check your internet connection and try again</string>
     <string name="delete_this_movie">Delete this movie from favorites?</string>
+    <string name="film_title_english_only">Film title (english only)</string>
+    <string name="filter">Filter</string>
+    <string name="there_are_no_films_with_such_a_year">There are no films with such a year</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
+    <string name="min_year">Min year</string>
+    <string name="filtering_by_year">Filtering by year</string>
+    <string name="no_filter_selected">No filter selected</string>
 </resources>

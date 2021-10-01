@@ -14,4 +14,14 @@ interface TopMovieDao {
 
     @Query("SELECT * FROM ${TopMoviesContract.TABLE_TOP_MOVIES_NAME}")
     suspend fun getAllTopMovies(): List<TopMovieDB>
+
+
+    @Query("SELECT * FROM ${TopMoviesContract.TABLE_TOP_MOVIES_NAME} WHERE ${TopMoviesContract.Columns.YEAR} > :minYear")
+    suspend fun getAllWithYearMoreThan(minYear: Int): List<TopMovieDB>
+
+    @Query("SELECT * FROM ${TopMoviesContract.TABLE_TOP_MOVIES_NAME} ORDER BY ${TopMoviesContract.Columns.YEAR} DESC")
+    suspend fun getAllWithYearDescending(): List<TopMovieDB>
+
+    @Query("SELECT * FROM ${TopMoviesContract.TABLE_TOP_MOVIES_NAME} ORDER BY ${TopMoviesContract.Columns.YEAR} ASC")
+    suspend fun getAllWithYearAscending(): List<TopMovieDB>
 }

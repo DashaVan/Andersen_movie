@@ -18,10 +18,6 @@ class MovieDBRepository {
         return movieDao.getAllFavouriteMovies()
     }
 
-    /*suspend fun getMovieById(id: String): MovieDB? {
-        return movieDao.getMovieById(id)
-    }*/
-
     suspend fun removeFavouriteMovie(id: String) {
         movieDao.removeFavouriteMovieById(id)
     }
@@ -32,5 +28,17 @@ class MovieDBRepository {
 
     suspend fun getAllTopMovies(): List<TopMovieDB> {
         return topMovieDao.getAllTopMovies()
+    }
+
+    suspend fun getAllWithYearMoreThan(year: Int): List<TopMovieDB> {
+        return topMovieDao.getAllWithYearMoreThan(year)
+    }
+
+    suspend fun getAllWithYearDescending(): List<TopMovieDB> {
+        return topMovieDao.getAllWithYearDescending()
+    }
+
+    suspend fun getAllWithYearAscending(): List<TopMovieDB> {
+        return topMovieDao.getAllWithYearAscending()
     }
 }
