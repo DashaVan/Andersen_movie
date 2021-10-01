@@ -54,6 +54,7 @@ class ListSearchMovieFragment : Fragment(R.layout.fragment_list_search_movie), Q
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setToolbarTitle("Search")
+        (activity as MainActivity).setToolbarArrowBack()
 
         initList()
         bindViewModel()

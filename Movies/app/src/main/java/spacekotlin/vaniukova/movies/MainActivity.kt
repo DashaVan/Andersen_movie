@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(1000)
+        setTheme(R.style.Theme_Movies)
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -62,10 +64,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
         binding.toolbar.setNavigationOnClickListener {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
             if (currentFragment is TopMoviesFragment) {
-                Toast.makeText(applicationContext, R.string.click_again, Toast.LENGTH_SHORT).show()
-                binding.toolbar.setNavigationOnClickListener {
-                    finish()
-                }
+                navigateTo(FavouriteMoviesFragment(), "favouriteMoviesFragment")
             } else {
                 supportFragmentManager.popBackStack()
             }
@@ -98,5 +97,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
             }
         }
         return false
+    }
+
+    fun setToolbarArrowBack(){
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+    }
+    fun setToolbarStar(){
+        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_blue)
     }
 }

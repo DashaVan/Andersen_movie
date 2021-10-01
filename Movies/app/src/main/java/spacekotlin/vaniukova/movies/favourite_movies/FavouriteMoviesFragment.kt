@@ -45,6 +45,7 @@ class FavouriteMoviesFragment: Fragment(R.layout.fragment_top_movies) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setToolbarTitle("Favourites")
+        (activity as MainActivity).setToolbarArrowBack()
 
         bindViewModel()
         initList()

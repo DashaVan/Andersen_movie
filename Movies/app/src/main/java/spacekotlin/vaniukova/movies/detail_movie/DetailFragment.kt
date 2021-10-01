@@ -48,6 +48,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setToolbarTitle("Detailed information")
+        (activity as MainActivity).setToolbarArrowBack()
 
         val idString = requireArguments().getString(KEY)
         var isFavouriteMovie = requireArguments().getBoolean(KEY_FAV)

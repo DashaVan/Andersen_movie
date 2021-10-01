@@ -54,7 +54,7 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setToolbarTitle("TOP-25")
-
+        (activity as MainActivity).setToolbarStar()
         firstRun = sharedPrefs.getBoolean(FIRST_RUN, true)
         dataRequest(firstRun)
         initList()

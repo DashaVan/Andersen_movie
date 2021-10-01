@@ -13,7 +13,8 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_star" />
+        app:srcCompat="@drawable/ic_star"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/imageViewPoster"
