@@ -116,13 +116,13 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun removeFavouriteMovie(){
         detailFragmentViewModel.removeFavouriteMovie(dMovie!!)
-        Toast.makeText(requireContext(), "Movie removed", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), R.string.movie_removed, Toast.LENGTH_SHORT).show()
         binding.imageButtonStar.setImageResource(R.drawable.ic_star)
     }
 
     private fun showDeleteFavMovDialog() {
         deleteFavMovieDialog = AlertDialog.Builder(requireContext())
-            .setMessage("Delete this movie from favorites?")
+            .setMessage(R.string.delete_this_movie)
             .setPositiveButton("Yes"){ _, _ ->
                 removeFavouriteMovie()
             }

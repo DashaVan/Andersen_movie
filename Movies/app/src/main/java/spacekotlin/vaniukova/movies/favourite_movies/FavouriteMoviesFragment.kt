@@ -1,9 +1,11 @@
 package spacekotlin.vaniukova.movies.favourite_movies
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,7 @@ class FavouriteMoviesFragment: Fragment(R.layout.fragment_top_movies) {
 
     private var favouriteMoviesAdapter: MovieListAdapter by autoCleared()
     private val favouriteMoviesViewModel: FavouriteMoviesViewModel by viewModels()
+    private var noInternetDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +39,7 @@ class FavouriteMoviesFragment: Fragment(R.layout.fragment_top_movies) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        noInternetDialog?.dismiss()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +61,19 @@ class FavouriteMoviesFragment: Fragment(R.layout.fragment_top_movies) {
     }
 
     private fun openDetailFragment(id: String) {
-        (activity as Navigator).navigateTo(DetailFragment.newInstance(id, true), "detailFragment")
+        if(MainActivity().isOnline(requireContext())){
+            (activity as Navigator).navigateTo(DetailFragment.newInstance(id, true), "detailFragment")
+        }else{
+            showNoInternetDialog()
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        noInternetDialog = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.no_internet)
+            .setMessage(R.string.please_check_connection)
+            .setPositiveButton(R.string.ok, null)
+            .show()
     }
 
     private fun bindViewModel() {

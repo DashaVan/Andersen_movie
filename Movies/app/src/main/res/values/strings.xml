@@ -19,4 +19,10 @@
     <string name="year_detail">Year:</string>
     <string name="click_again">Click again</string>
     <string name="added_favourites">Added to favourites</string>
+    <string name="movie_removed">Movie removed</string>
+    <string name="try_again">Try again</string>
+    <string name="no_internet">No Internet!</string>
+    <string name="ok">OK</string>
+    <string name="please_check_connection">Please check your internet connection and try again</string>
+    <string name="delete_this_movie">Delete this movie from favorites?</string>
 </resources>

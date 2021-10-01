@@ -1,10 +1,13 @@
 package spacekotlin.vaniukova.movies.top_movies_list
 
+import android.app.AlertDialog
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +34,7 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
 
     private var topMoviesAdapter: MovieListAdapter by autoCleared()
     private val topMoviesViewModel: TopMoviesViewModel by viewModels()
+    private var noInternetDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +48,7 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        noInternetDialog?.dismiss()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,13 +56,28 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
         (activity as MainActivity).setToolbarTitle("TOP-25")
 
         firstRun = sharedPrefs.getBoolean(FIRST_RUN, true)
-        if (firstRun) {
-            bindViewModelNetwork()
-            sharedPrefs.edit().putBoolean(FIRST_RUN, false).apply()
+        dataRequest(firstRun)
+        initList()
+
+        binding.btnTryAgain.setOnClickListener {
+            dataRequest(firstRun)
+        }
+    }
+
+    private fun dataRequest(isFirst: Boolean){
+        if (isFirst) {
+            if(MainActivity().isOnline(requireContext())){
+                bindViewModelNetwork()
+                sharedPrefs.edit().putBoolean(FIRST_RUN, false).apply()
+                binding.btnTryAgain.visibility = View.GONE
+            }else{
+                binding.btnTryAgain.visibility = View.VISIBLE
+                showNoInternetDialog()
+            }
         } else {
+            binding.btnTryAgain.visibility = View.GONE
             bindViewModelDB()
         }
-        initList()
     }
 
     private fun initList() {
@@ -70,7 +90,19 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
     }
 
     private fun openDetailFragment(id: String) {
-        (activity as Navigator).navigateTo(DetailFragment.newInstance(id, false), "detailFragment")
+        if(MainActivity().isOnline(requireContext())){
+            (activity as Navigator).navigateTo(DetailFragment.newInstance(id, false), "detailFragment")
+        }else{
+            showNoInternetDialog()
+        }
+    }
+
+    private fun showNoInternetDialog() {
+        noInternetDialog = AlertDialog.Builder(requireContext())
+            .setTitle(R.string.no_internet)
+            .setMessage(R.string.please_check_connection)
+            .setPositiveButton(R.string.ok, null)
+            .show()
     }
 
     private fun bindViewModelNetwork() {

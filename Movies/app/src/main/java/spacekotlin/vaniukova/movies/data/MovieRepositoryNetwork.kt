@@ -45,6 +45,7 @@ class MovieRepositoryNetwork {
                     call: retrofit2.Call<ServerItemsWrapper<Movie>>,
                     t: Throwable
                 ) {
+                    message("No Internet! Please check your internet connection and try again")
                     onError(t)
                 }
             })
