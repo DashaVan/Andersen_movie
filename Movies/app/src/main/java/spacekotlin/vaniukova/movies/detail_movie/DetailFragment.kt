@@ -1,5 +1,6 @@
 package spacekotlin.vaniukova.movies.detail_movie
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val detailFragmentViewModel: DetailFragmentViewModel by viewModels()
     private var dMovie: Movie? = null
+    private var deleteFavMovieDialog: AlertDialog? = null
 
     companion object {
         private const val KEY = "key"
@@ -54,12 +56,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         queryById(idString!!)
 
         binding.imageButtonStar.setOnClickListener{
-            if (!isFavouriteMovie) {
+            isFavouriteMovie = if (!isFavouriteMovie) {
                 addFavourites()
-                isFavouriteMovie = true
+                true
             } else {
-                removeFavouriteMovie()
-                isFavouriteMovie = false
+                showDeleteFavMovDialog()
+                false
             }
         }
 
@@ -73,12 +75,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
             detailMovie.observe(viewLifecycleOwner) { dMovie = it }
         }
-
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
         with(binding) {
             ivDetailPoster.isVisible = isLoading.not()
+            textView7.isVisible = isLoading.not()
+            textView8.isVisible = isLoading.not()
+            imageButtonStar.isVisible = isLoading.not()
             progressBar.isVisible = isLoading
         }
         if (!isLoading) {
@@ -116,8 +120,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.imageButtonStar.setImageResource(R.drawable.ic_star)
     }
 
+    private fun showDeleteFavMovDialog() {
+        deleteFavMovieDialog = AlertDialog.Builder(requireContext())
+            .setMessage("Delete this movie from favorites?")
+            .setPositiveButton("Yes"){ _, _ ->
+                removeFavouriteMovie()
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        deleteFavMovieDialog?.dismiss()
     }
 }

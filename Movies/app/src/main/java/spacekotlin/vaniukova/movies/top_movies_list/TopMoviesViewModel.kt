@@ -1,5 +1,6 @@
 package spacekotlin.vaniukova.movies.top_movies_list
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,14 +16,20 @@ class TopMoviesViewModel : ViewModel() {
 
     private val repository = MovieRepositoryNetwork()
     private val topMoviesLiveData = MutableLiveData<List<Movie>?>()
+    private val isLoadingLiveData = MutableLiveData(false)
 
     val topMovies: MutableLiveData<List<Movie>?>
         get() = topMoviesLiveData
 
+    val isLoading: LiveData<Boolean>
+        get() = isLoadingLiveData
+
     fun requestMovies() {
+        isLoadingLiveData.postValue(true)
         repository.fetchTopMovies(movieIds) { listMovies ->
             topMoviesLiveData.postValue(listMovies)
             listMovies.forEach { saveTopMovies(it) }
+            isLoadingLiveData.postValue(false)
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,9 +74,17 @@ class TopMoviesFragment : Fragment(R.layout.fragment_top_movies) {
     }
 
     private fun bindViewModelNetwork() {
-        topMoviesViewModel.topMovies.observe(viewLifecycleOwner) { topMoviesAdapter.items = it }
-        topMoviesViewModel.requestMovies()
+        with(topMoviesViewModel){
+            isLoading.observe(viewLifecycleOwner, ::updateLoadingState)
+            topMovies.observe(viewLifecycleOwner) { topMoviesAdapter.items = it }
+            requestMovies()
+        }
     }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+        binding.progressBar2.isVisible = isLoading
+    }
+
 
     private fun bindViewModelDB() {
         topMoviesViewModel.dbTopMovies.observe(viewLifecycleOwner) { list ->
