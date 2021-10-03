@@ -35,8 +35,14 @@ class DialogFilterFragment : DialogFragment() {
                     rbId = 1
                     binding.etMinYear.isVisible = true
                 }
-                binding.rbDescending.id -> rbId = 2
-                binding.rbAscending.id -> rbId = 3
+                binding.rbDescending.id -> {
+                    rbId = 2
+                    binding.etMinYear.isVisible = false
+                }
+                binding.rbAscending.id -> {
+                    rbId = 3
+                    binding.etMinYear.isVisible = false
+                }
                 else -> rbId = 4
             }
             isChecked = true

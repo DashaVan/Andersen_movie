@@ -62,9 +62,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
 
         binding.toolbar.setNavigationOnClickListener {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
-            if (currentFragment is TopMoviesFragment) {
-                navigateTo(FavouriteMoviesFragment(), "favouriteMoviesFragment")
-            } else {
+            if (currentFragment !is TopMoviesFragment) {
                 supportFragmentManager.popBackStack()
             }
         }
@@ -101,6 +99,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
     fun setToolbarArrowBack(){
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
     }
+
     fun setToolbarStar(){
         binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_blue)
     }

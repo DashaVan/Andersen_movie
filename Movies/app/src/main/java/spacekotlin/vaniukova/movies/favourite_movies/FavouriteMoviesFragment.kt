@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,7 +46,6 @@ class FavouriteMoviesFragment: Fragment(R.layout.fragment_top_movies) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setToolbarTitle("Favourites")
         (activity as MainActivity).setToolbarArrowBack()
-
         binding.filterFab.isVisible = false
 
         bindViewModel()

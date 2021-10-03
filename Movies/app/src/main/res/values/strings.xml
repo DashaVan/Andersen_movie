@@ -11,7 +11,7 @@
     <string name="movies">Movies</string>
     <string name="game">Games</string>
     <string name="all">All</string>
-    <string name="more">more</string>
+    <string name="more">More</string>
     <string name="dialog_message_fill_title">Fill in the "Title" field</string>
     <string name="favourites">Favourites</string>
     <string name="top_25">Top-25</string>
@@ -33,4 +33,5 @@
     <string name="min_year">Min year</string>
     <string name="filtering_by_year">Filtering by year</string>
     <string name="no_filter_selected">No filter selected</string>
+    <string name="add_your_favourite_movies">Add your favourite movies</string>
 </resources>
