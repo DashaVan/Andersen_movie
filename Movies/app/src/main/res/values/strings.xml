@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="titleFilm">Film title</string>
+    <string name="year">Year</string>
+    <string name="search">Search</string>
+    <string name="film">film</string>
+    <string name="label">label</string>
+    <string name="error">error</string>
+    <string name="enter_the_search_data">Enter the search data</string>
+    <string name="series">Series</string>
+    <string name="movies">Movies</string>
+    <string name="game">Games</string>
+    <string name="all">All</string>
+    <string name="more">More</string>
+    <string name="dialog_message_fill_title">Fill in the "Title" field</string>
+    <string name="favourites">Favourites</string>
+    <string name="top_25">Top-25</string>
+    <string name="type">Type:</string>
+    <string name="year_detail">Year:</string>
+    <string name="click_again">Click again</string>
+    <string name="added_favourites">Added to favourites</string>
+    <string name="movie_removed">Movie removed</string>
+    <string name="try_again">Try again</string>
+    <string name="no_internet">No Internet!</string>
+    <string name="ok">OK</string>
+    <string name="please_check_connection">Please check your internet connection and try again</string>
+    <string name="delete_this_movie">Delete this movie from favorites?</string>
+    <string name="film_title_english_only">Film title (english only)</string>
+    <string name="filter">Filter</string>
+    <string name="there_are_no_films_with_such_a_year">There are no films with such a year</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
+    <string name="min_year">Min year</string>
+    <string name="filtering_by_year">Filtering by year</string>
+    <string name="no_filter_selected">No filter selected</string>
+    <string name="add_your_favourite_movies">Add your favourite movies</string>
+</resources>
